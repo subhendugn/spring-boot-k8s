@@ -26,3 +26,5 @@ Spring Boot, Docker deployed on Kubernetes cluster
 After running image locally, it will create containes
 
 - To check all the active containers => docker ps -a
+
+- Push the image to docker hub - docker push subhendugn/spring-boot-k8s:v1
