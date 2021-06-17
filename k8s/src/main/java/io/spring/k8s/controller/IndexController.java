@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
     
 
-    @GetMapping
+    @GetMapping("index")
     public String index() {
         String host = null;
         try {
