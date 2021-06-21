@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-web-deploy
+  labels:
+    app: springWeb
+
+#ReplicaSet spec
+# replicas - desired state 
+# maxUnavailable - when doing an update never drop below no of "replicas" count
+# maxSurge - when doing an update max surge is "replicas" count + maxSurge no
+# minReadySeconds - k8s will role on update, hit the max surge, wait for minReadySeconds
+# and if everthing is fine delete an old one and then back to replicas count.
+# for rolling update status
+# kubectl rollout status deploy <name-of-the-deploy> 
+# This will list out all the revision and casue of change
+#
+# roll back to a specific revision -
+# kubectl rollout undo deploy <name-of-the-deploy> --to-revision=<specific-revision>
+#
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: springWeb
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+
+#Pod spec
+  template:
+    metadata:
+      labels:
+        app: springWeb
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: spring-boot-k8s
+        image: subhendugn/spring-boot-k8s:v2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8070
+      
