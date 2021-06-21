@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ps-lb
+
+#type is loadbalancer
+#port - listen on 80 port externally
+#targetport - same as containerPort, forward all the call to 7070 which is application port
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8070
+  selector:
+    app: springWeb
