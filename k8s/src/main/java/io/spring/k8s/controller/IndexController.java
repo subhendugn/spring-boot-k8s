@@ -21,4 +21,9 @@ public class IndexController {
 
         return "Hello from " + host;
     }
+
+    @GetMapping("updateone")
+    public String uopdateone() {
+        return "Update 1 successful!!";
+    }
 }
