@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-web-deploy
+  labels:
+    app: springWeb
+
+#ReplicaSet spec
+# replicas - desired state 
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: springWeb
+
+#Pod spec
+  template:
+    metadata:
+      labels:
+        app: springWeb
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: spring-boot-k8s
+        image: subhendugn/spring-boot-k8s:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8070
+      
